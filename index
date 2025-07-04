@@ -1,34 +1,39 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tính Cước Xe Hợp Đồng</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
       margin: 0;
-      background: #f6f8fa;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: "Segoe UI", sans-serif;
+      background-color: #f2f2f2;
     }
     .container {
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px 16px 80px;
-  background: #fff;
-      min-height: 100vh;
-      box-sizing: border-box;
+      width: 100vw;
+      height: 100vh;
+      background: #ffffff;
+      padding: 24px 16px 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
     h2 {
       text-align: center;
       color: #2c3e50;
       margin-bottom: 24px;
+      font-size: 22px;
     }
     label {
       font-weight: 600;
-      display: block;
       margin-top: 14px;
+      display: block;
       color: #333;
+      font-size: 15px;
     }
     input, select {
       width: 100%;
@@ -37,7 +42,6 @@
       border: 1px solid #ccc;
       border-radius: 8px;
       font-size: 16px;
-      box-sizing: border-box;
     }
     button {
       margin-top: 24px;
@@ -50,7 +54,7 @@
       font-size: 17px;
       font-weight: bold;
       cursor: pointer;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
     button:hover {
       background-color: #27ae60;
@@ -62,7 +66,6 @@
       color: #27ae60;
       text-align: center;
     }
-    /* Nút gọi ở góc phải dưới */
     .call-button {
       position: fixed;
       right: 20px;
@@ -74,8 +77,17 @@
       font-size: 24px;
       text-align: center;
       text-decoration: none;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
       z-index: 999;
+    }
+    @media (max-width: 400px) {
+      h2 {
+        font-size: 18px;
+      }
+      input, select, button {
+        font-size: 15px;
+        padding: 10px;
+      }
     }
   </style>
 </head>
@@ -91,18 +103,18 @@
     </select>
 
     <label for="km">Số km:</label>
-    <input type="number" id="km" placeholder="Nhập số km">
+    <input type="number" id="km" placeholder="Nhập số km" />
 
     <label for="ngayCho">Số ngày chờ:</label>
-    <input type="number" id="ngayCho" placeholder="Nhập số ngày chờ">
+    <input type="number" id="ngayCho" placeholder="Nhập số ngày chờ" />
 
     <label for="gioCho">Số giờ chờ:</label>
-    <input type="number" id="gioCho" placeholder="Nhập số giờ chờ">
+    <input type="number" id="gioCho" placeholder="Nhập số giờ chờ" />
 
     <label for="chieu">Hình thức chuyến đi:</label>
     <select id="chieu">
-      <option value="2">Hai chiều (giảm 10%)</option>
-      <option value="1">Một chiều (tăng 30%)</option>
+      <option value="2">Hai chiều </option>
+      <option value="1">Một chiều </option>
     </select>
 
     <button onclick="tinhCuoc()">Tính cước</button>
@@ -110,44 +122,42 @@
     <div id="result"></div>
   </div>
 
-  <!-- Nút gọi điện -->
-  <a href="tel:0944139617" class="call-button">📞</a>
+  <!-- Nút gọi -->
+  <a href="tel:0944139617" class="call-button"></a>
 
   <script>
     function tinhCuoc() {
-      const loaiXe = document.getElementById('loaiXe').value;
-      const km = parseFloat(document.getElementById('km').value) || 0;
-      const ngayCho = parseFloat(document.getElementById('ngayCho').value) || 0;
-      const gioCho = parseFloat(document.getElementById('gioCho').value) || 0;
-      const chieu = document.getElementById('chieu').value;
+      const loaiXe = document.getElementById("loaiXe").value;
+      const km = parseFloat(document.getElementById("km").value) || 0;
+      const ngayCho = parseFloat(document.getElementById("ngayCho").value) || 0;
+      const gioCho = parseFloat(document.getElementById("gioCho").value) || 0;
+      const chieu = document.getElementById("chieu").value;
 
       let donGia = 0;
-      let phiChoNgay = 0;
 
-      if (loaiXe === '4') {
+      // Giá theo loại xe
+      if (loaiXe === "4") {
         donGia = 11000;
-        phiChoNgay = 330000;
-      } else if (loaiXe === '7') {
+      } else if (loaiXe === "7") {
         donGia = 13200;
-        phiChoNgay = 440000;
-      } else if (loaiXe === '16') {
+      } else if (loaiXe === "16") {
         donGia = 15400;
-        phiChoNgay = 550000;
       }
 
+      const phiChoNgay = 350000; // Giống nhau cho mọi xe
       const tienKm = km * donGia;
       const tienNgayCho = ngayCho * phiChoNgay;
       const tienGioCho = gioCho * 60000;
-
       let tong = tienKm + tienNgayCho + tienGioCho;
 
       if (chieu === "1") {
-        tong *= 1.30; // Một chiều tăng 30%
+        tong *= 1.3; // Một chiều tăng 30%
       } else if (chieu === "2") {
-        tong *= 0.90; // Hai chiều giảm 10%
+        tong *= 0.9; // Hai chiều giảm 10%
       }
 
-      document.getElementById('result').innerText = "Tổng cước: " + Math.round(tong).toLocaleString('vi-VN') + " đ";
+      document.getElementById("result").innerText =
+        "Tổng cước: " + Math.round(tong).toLocaleString("vi-VN") + " đ";
     }
   </script>
 </body>
