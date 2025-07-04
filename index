@@ -113,8 +113,8 @@
 
     <label for="chieu">Hình thức chuyến đi:</label>
     <select id="chieu">
-      <option value="2">Hai chiều </option>
       <option value="1">Một chiều </option>
+      <option value="2">Hai chiều </option>
     </select>
 
     <button onclick="tinhCuoc()">Tính cước</button>
@@ -151,9 +151,9 @@
       let tong = tienKm + tienNgayCho + tienGioCho;
 
       if (chieu === "1") {
-        tong *= 1.3; // Một chiều tăng 30%
+        tong *= 1.3; // Một chiều
       } else if (chieu === "2") {
-        tong *= 0.9; // Hai chiều giảm 10%
+        tong *= 0.9; // Hai chiều 
       }
 
       document.getElementById("result").innerText =
